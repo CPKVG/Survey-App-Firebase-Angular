@@ -1,0 +1,21 @@
+
+<form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+
+  <label for="question">question: </label>
+  <input id="question" type="text" formControlName="question">
+
+  <div formArrayName="answers">
+    <button (click)="addAnswers()">+ Add another answer</button>
+
+    <div *ngFor="let answer of answers.controls; let i=index">
+      <!-- The repeated answers template -->
+      <label for="answers-{{ i }}">answers:</label>
+      <input id="answers-{{ i }}" type="text" [formControlName]="i">
+    </div>
+
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+<p>Form Status: {{ surveyForm.status }}</p>
+<p>{{this.surveyForm.value | json}}</p>
