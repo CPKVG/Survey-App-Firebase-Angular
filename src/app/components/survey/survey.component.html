@@ -1,0 +1,51 @@
+
+<form [formGroup]="survey" novalidate (ngSubmit)="onSubmit(survey)">
+
+	<div formArrayName="sections">
+		<div class="section-container" *ngFor="let section of getSections(survey); let i = index">
+            <div [formGroupName]="i">
+
+                <input type="text" placeholder = "Question" formControlName="question">
+                <input type="text" placeholder = "Description" formControlName="questionDesc">
+
+                <!-- <select formControlName="questionType" (change)="changeType($event, i)" > checking for bool option -->
+                    <select formControlName="questionType" (change) = changeType(i)>
+                    <option *ngFor="let questionType of questionTypes" [ngValue]="questionType">
+                        {{questionType}}
+                    </option>
+                    <!-- <option>Multichoice</option>
+                    <option>Free Text</option>
+                    <option>True/False</option> -->
+                  </select>
+
+                <div formArrayName="answers">
+                    <div class = "answers" [formGroupName]="j" *ngFor="let answers of getAnswers(section); let j = index">
+
+                        <input *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" type="text" placeholder = "Answer" formControlName="answer" >
+                        <!-- need to add true/false here checker if questionType = true/false-->
+                    
+                        
+                        <div class = "bool" *ngFor="let bool of bools">
+ 
+                            <input *ngIf = "getSections(survey)[i].value.questionType == 'True/False'" type="radio" formControlName="answer" [value] = "bool" [id]="i+bool">
+                            <label *ngIf = "getSections(survey)[i].value.questionType == 'True/False'">
+                                {{bool}}
+                            </label>
+                            
+
+                        </div>  
+  
+                    </div>
+                    <button *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" (click)="addAnswer(i)">Add Answer</button>
+
+                    <button *ngIf="getAnswers(section).length > 1" (click)="removeAnswer(i)">Remove Answer</button>
+                </div>
+
+            </div>
+            <button *ngIf="getSections(survey).length > 1" (click)="removeSection(i)">Remove Section</button>
+        </div><br>
+        <button (click)="addSection()" class="point">Add Section </button>
+    </div>
+</form>
+
+<pre> {{survey.value | json}} </pre>
