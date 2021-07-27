@@ -14,8 +14,6 @@ export class SurveyComponent implements OnInit {
   survey!: FormGroup;
   // questionTypes
   questionTypes: any = ['Multichoice', 'Free Text', 'True/False']
- // bool show/hide toggle
-  // show = true;
 
 
   constructor(private fb: FormBuilder) {
@@ -59,87 +57,20 @@ export class SurveyComponent implements OnInit {
       control.push(this.initAnswer());      
     }
 
-    // hide(){
-    //   this.show = false
-    // }
-        //check if true/false questiontype + hide text input/addAnswer btn 
 
-    // changeType(e:any, i:any){
-    //   // const control = <FormArray>this.survey.get('sections');
-    //   const control = this.survey.get(`sections.${i}.questionType`) as FormArray;
-    //   const sectionControl = this.survey.get('sections')
-    //   console.log(sectionControl)
-    //   if (control.value == "True/False"){
-    //     this.show = !this.show;
-    //   }else{
-    //     this.show = true
-    //   }
-    //   console.log(control.value)
-    // }
-
-    // toggleShow(i:any){
-    //   return true
-    // }
-
-
-    // toggleShow(i:number){
-    //   if(this.getSections(this.survey)[i].value.questionType == 'True/False'){
-        
-    //     const control = this.survey.get(`sections.${i}.answers`) as FormArray;
-
-    //     control.clear()
-    //     control.push(this.initSection());
-    //     //remove answer input except 1
-         
-    //     // this.getAnswers.clear()
-
-    //     //remove answer input except 1
-    //   //   while (control.length > 1) {
-    //   //     control.removeAt(1);
-    //   //  }
-    //   }
-    //   return(!this.show)
-    //   }
-
-
-    toggleShow(j:number){
-
-      const control = this.survey.get(`sections.${j}.answers`) as FormArray;
-
+    changeType(i:any){
+      
+    if(this.getSections(this.survey)[i].value.questionType == 'True/False'){
+      const control = this.survey.get(`sections.${i}.answers`) as FormArray;
+      console.log(control)
+      while (control.length > 1) {
+        control.removeAt(i);
       }
-
-    //   modelChanged(event: any) {
-
-    //     event === "True" ? console.log("true") : console.log("false")
-    //     // e === "True" ? creds.controls.label.enable() : creds.controls.label.disable()
-    // }
-
-
-      changeType(i:any){
-        
-      if(this.getSections(this.survey)[i].value.questionType == 'True/False'){
-        const control = this.survey.get(`sections.${i}.answers`) as FormArray;
-        console.log(control)
-        while (control.length > 1) {
-          control.removeAt(i);
-       }
-       
-
-
-       }
-      }
-
-
-        resetAnswerSize(i:number){
-          const control = this.survey.get(`sections.${i}.answers`) as FormArray;
     
-          while (control.length > 1) {
-            control.removeAt(i);
-         }
+      }
+    }
 
-        }
-        
-
+  
     getSections(form:any) {
       // console.log(form.get('sections').controls, "getSection");
     // console.log(form.controls.sections.controls)

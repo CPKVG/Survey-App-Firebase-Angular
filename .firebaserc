@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "survey-cms-app": {
+      "hosting": {
+        "angular-survey-app": [
+          "survey-cms-app"
+        ]
+      }
+    }
+  }
+}

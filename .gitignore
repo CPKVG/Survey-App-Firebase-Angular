@@ -13,6 +13,9 @@
 #gitignore-folder
 src\app\components\gitignore-folder
 
+#environments
+src\environments
+
 # profiling files
 chrome-profiler-events*.json
 

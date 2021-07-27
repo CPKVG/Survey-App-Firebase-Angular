@@ -1,16 +1,35 @@
 
+# Angular-Survey-App
+
+Content management system for creating surveys for private deployment. 
+
+* The survey can be customised by answer type (true/false, free text and multichoice). 
+* The application is set to dynamically create forms using angulars build form api 
+
+
+## WIP 
+**Firebase login/logout system**
+**Admin CMS page**
+**survey deployment**
+**survey data extraction for admin**
+**Readme page**
+
+## Setting up Firebase 
+
+
+###### ==Firebase ConfigAPI==
+
+You need to create an account with firebase, start by making a project and retrive it's API
+
+Insert the API in : ```environment.ts```
+
+npm install firebase @angular/fire --save
 
 
 
 
-
-
-
-
-
-
-
-# AngularSurveyApp
+*********************************************************************************************************
+# Default ReadMe
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
 
