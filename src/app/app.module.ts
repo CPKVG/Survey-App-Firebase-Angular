@@ -14,10 +14,6 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
-
-// import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
-
 import { environment } from '../environments/environment';
 
 import { LogService } from './shared/log.service';
@@ -29,35 +25,19 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { AuthService } from './shared/services/auth.service';
-import { HomepageComponent } from './components/homepage/homepage.component';
-
-
-// import { AuthService } from "./shared/services/auth.service";
-
-
-// const config = {
-//   apiKey: "AIzaSyA0DVIg-lHKdXkYo4IJA8AmdAEYelkbor8",
-//   authDomain: "survey-cms-app.firebaseapp.com",
-//   projectId: "survey-cms-app",
-//   storageBucket: "survey-cms-app.appspot.com",
-//   messagingSenderId: "1061952103414",
-//   appId: "1:1061952103414:web:96ccdf9552125cd2019dd7",
-//   measurementId: "G-5BZJP4BHYP"
-// };
-
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({ 
   declarations: [
     AppComponent,
-    // HomeComponent,
     LogTestComponent,
     SurveyComponent,
 
     DashboardComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    HomepageComponent,
+    HomeComponent,
 
     
   ],
