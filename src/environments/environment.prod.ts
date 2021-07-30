@@ -3,5 +3,4 @@ export const environment = {
   firebase:{
     
   }
-  ,"test"
 };
