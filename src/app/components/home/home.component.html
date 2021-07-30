@@ -5,7 +5,6 @@
     {{ user | json }}
   </pre>
   
-  <hr>
   <button class="button" (click)="auth.signOut()">Sign Out</button>
 
 </div>
@@ -13,3 +12,7 @@
 <ng-template #login>
   <button class="button" (click)="auth.googleSignin()">Login with Google</button>
 </ng-template>
+
+<br>
+
+<app-survey></app-survey>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormArray, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
+import { SurveyService } from 'src/app/shared/services/survey.service';
 
 @Component({
   selector: 'app-survey',
@@ -9,19 +10,25 @@ import { FormArray, FormGroup, FormControl, Validators, FormBuilder } from '@ang
 })
 export class SurveyComponent implements OnInit {
   public bools = ["True","False"] 
-  public show = true
+
+  public show:boolean = false;
 
   survey!: FormGroup;
+
   // questionTypes
   questionTypes: any = ['Multichoice', 'Free Text', 'True/False']
 
 
-  constructor(private fb: FormBuilder) {
-
+  constructor(
+    private fb: FormBuilder, 
+    private _survey:SurveyService,
+    // private afs: AngularFirestore,
+  ){
   }
   ngOnInit() {
     this.survey = this.fb.group({
       surveyName: [''],
+      surveyDate: [''],
       sections: this.fb.array([
         this.initSection(),
       ])
@@ -52,7 +59,7 @@ export class SurveyComponent implements OnInit {
 
     // value[0].questionType
     addAnswer(j:any) {
-      console.log(j);
+      // console.log(j);
       const control = this.survey.get(`sections.${j}.answers`) as FormArray;
       control.push(this.initAnswer());      
     }
@@ -62,7 +69,6 @@ export class SurveyComponent implements OnInit {
       
     if(this.getSections(this.survey)[i].value.questionType == 'True/False'){
       const control = this.survey.get(`sections.${i}.answers`) as FormArray;
-      console.log(control)
       while (control.length > 1) {
         control.removeAt(i);
       }
@@ -97,15 +103,22 @@ export class SurveyComponent implements OnInit {
  
    }
 
-   onSubmit(form:any){
-     console.log(this.survey.value)
-     console.log("submited")
-   }
-    
+   setDate() { //retrive current date
+    this.survey.patchValue({
+      surveyDate: new Date(),
+    });
   }
 
+   onSubmit(form:any){
+    this.setDate()
+    let data = this.survey.value
+    this._survey.createUserSurvey(data)
+   }
 
-function e(e: any, i: any) {
-  throw new Error('Function not implemented.');
-}
 
+  callToAction(){
+    this.show = true
+  }
+  
+
+  }

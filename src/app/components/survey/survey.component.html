@@ -1,5 +1,12 @@
 
-<form [formGroup]="survey" novalidate (ngSubmit)="onSubmit(survey)">
+
+<div>
+    <button *ngIf = "!show" (click)="callToAction()"> Start building </button>
+</div>
+
+
+
+<form [formGroup]="survey" novalidate (ngSubmit)="onSubmit(survey)" *ngIf = "show"  >
 
 	<div formArrayName="sections">
 		<div class="section-container" *ngFor="let section of getSections(survey); let i = index">
@@ -46,6 +53,11 @@
         </div><br>
         <button (click)="addSection()" class="point">Add Section </button>
     </div>
+    <div>
+        <button (click) ="onSubmit" >Submit</button>
+    </div>
+
+    <pre> {{survey.value | json}} </pre>
 </form>
 
-<pre> {{survey.value | json}} </pre>
+

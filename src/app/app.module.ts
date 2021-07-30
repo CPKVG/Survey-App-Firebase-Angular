@@ -26,6 +26,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { AuthService } from './shared/services/auth.service';
 import { HomeComponent } from './components/home/home.component';
+import { SurveyService } from './shared/services/survey.service';
 
 
 @NgModule({ 
@@ -53,7 +54,11 @@ import { HomeComponent } from './components/home/home.component';
     AngularFirestoreModule,
     
   ],
-  providers: [LogService, AuthService],
+  providers: [
+    LogService,
+    AuthService, 
+    SurveyService
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
