@@ -15,6 +15,9 @@ Content management system for creating surveys for private deployment.
 **Readme page**
 
 ## Setting up Firebase 
+### dependancies 
+
+###
 
 
 ###### ==Firebase ConfigAPI==

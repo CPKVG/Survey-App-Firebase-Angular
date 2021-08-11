@@ -6,7 +6,7 @@
 
 
 
-<form [formGroup]="survey" novalidate (ngSubmit)="onSubmit(survey)" *ngIf = "show"  >
+<form [formGroup]="survey" (ngSubmit)="onSubmit(survey)" *ngIf = "show"  >
 
 	<div formArrayName="sections">
 		<div class="section-container" *ngFor="let section of getSections(survey); let i = index">
@@ -43,13 +43,13 @@
                         </div>  
   
                     </div>
-                    <button *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" (click)="addAnswer(i)">Add Answer</button>
+                    <button type="button" *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" (click)="addAnswer(i)">Add Answer</button>
 
-                    <button *ngIf="getAnswers(section).length > 1" (click)="removeAnswer(i)">Remove Answer</button>
+                    <button type="button" *ngIf="getAnswers(section).length > 1" (click)="removeAnswer(i)">Remove Answer</button>
                 </div>
 
             </div>
-            <button *ngIf="getSections(survey).length > 1" (click)="removeSection(i)">Remove Section</button>
+            <button type="button" *ngIf="getSections(survey).length > 1" (click)="removeSection(i)">Remove Section</button>
         </div><br>
         <button (click)="addSection()" class="point">Add Section </button>
     </div>
@@ -60,4 +60,4 @@
     <pre> {{survey.value | json}} </pre>
 </form>
 
-
+<app-survey-review></app-survey-review>

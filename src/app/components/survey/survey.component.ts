@@ -26,14 +26,27 @@ export class SurveyComponent implements OnInit {
   ){
   }
   ngOnInit() {
+    // console.log(this._survey.surveyId,"(this._survey.surveyId)")
     this.survey = this.fb.group({
       surveyName: [''],
       surveyDate: [''],
+      surveyId:[''], //retriving for surveyUrl
       sections: this.fb.array([
         this.initSection(),
       ])
     })
   }
+
+    initSurvey(){
+      this.survey = this.fb.group({
+        surveyName: [''],
+        surveyDate: [''],
+        surveyId:[''], //retriving for surveyUrl
+        sections: this.fb.array([
+          this.initSection(),
+        ])
+      })
+    }
 
     initSection() {
       return this.fb.group({
@@ -104,10 +117,17 @@ export class SurveyComponent implements OnInit {
    }
 
    setDate() { //retrive current date
+    
     this.survey.patchValue({
       surveyDate: new Date(),
     });
   }
+
+  // setUid(){
+  //   this.survey.patchValue({
+  //     surveyId: this._survey.surveyId
+  //   });
+  // }
 
    onSubmit(form:any){
     this.setDate()

@@ -1,0 +1,25 @@
+
+<div class="surveyRetrived">
+    
+    <!-- create unique page here coorspondant to its uid of subcollection and present its data here
+    in survey formatt -->
+
+    <div *ngIf = "items">
+        <h4> survey: {{items.surveyDate}}</h4> 
+        <h4> survey: {{items.surveyName}}</h4> 
+        <h4> survey: {{items.id}}</h4> 
+
+      <li *ngFor="let subItem of items['sections']" > 
+        {{subItem.question}} 
+        <!-- {{subItem.questionDesc}}
+        {{subItem.questionType}} -->
+        <ol>  
+          <li *ngFor="let subSubItem of subItem['answers']">
+            {{subSubItem.answer}}
+          </li>  
+        </ol>
+      </li>
+
+    </div>
+
+</div>

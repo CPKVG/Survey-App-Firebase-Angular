@@ -8,6 +8,7 @@ import { SignUpComponent } from '../app/components/sign-up/sign-up.component';
 import { DashboardComponent } from '../app/components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from '../app/components/forgot-password/forgot-password.component';
 import { HomeComponent } from './components/home/home.component';
+import { SurveyUrlComponent } from './components/survey/survey-url/survey-url.component';
 
 // import { AuthGuard } from "../app/shared/guard/auth.guard";
 // import { VerifyEmailComponent } from '../app/components/verify-email/verify-email.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   // { path: 'verify-email-address', component: VerifyEmailComponent }
 
+  { path: 'survey/:id', component: SurveyUrlComponent }, // generate unique url to share around
 ];
 
 @NgModule({

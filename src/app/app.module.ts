@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { HomeComponent } from './components/home/home.component';
@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 //AngularFire
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreCollection, AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 import { environment } from '../environments/environment';
@@ -27,6 +27,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { AuthService } from './shared/services/auth.service';
 import { HomeComponent } from './components/home/home.component';
 import { SurveyService } from './shared/services/survey.service';
+import { SurveyReviewComponent } from './components/survey/survey-review/survey-review.component';
+import { SurveyCollectComponent } from './components/survey/survey-collect/survey-collect.component';
+import { SurveyUrlComponent } from './components/survey/survey-url/survey-url.component';
 
 
 @NgModule({ 
@@ -39,6 +42,9 @@ import { SurveyService } from './shared/services/survey.service';
     SignUpComponent,
     ForgotPasswordComponent,
     HomeComponent,
+    SurveyReviewComponent,
+    SurveyCollectComponent,
+    SurveyUrlComponent,
 
     
   ],
@@ -48,6 +54,7 @@ import { SurveyService } from './shared/services/survey.service';
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -57,7 +64,8 @@ import { SurveyService } from './shared/services/survey.service';
   providers: [
     LogService,
     AuthService, 
-    SurveyService
+    // SurveyService,
+    
     ],
   bootstrap: [AppComponent]
 })
