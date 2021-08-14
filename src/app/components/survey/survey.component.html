@@ -29,7 +29,7 @@
                     <div class = "answers" [formGroupName]="j" *ngFor="let answers of getAnswers(section); let j = index">
 
                         <input *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" type="text" placeholder = "Answer" formControlName="answer" >
-                        <!-- need to add true/false here checker if questionType = true/false-->
+                        <!--add true/false here checker if questionType = true/false-->
                     
                         
                         <div class = "bool" *ngFor="let bool of bools">

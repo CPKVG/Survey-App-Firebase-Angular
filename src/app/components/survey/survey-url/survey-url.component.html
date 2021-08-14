@@ -1,25 +1,50 @@
 
-<div class="surveyRetrived">
-    
-    <!-- create unique page here coorspondant to its uid of subcollection and present its data here
-    in survey formatt -->
 
+
+
+<form [formGroup]="surveyCol" (ngSubmit)="onSubmit(surveyCol)">
+
+  <div formArrayName="sections">
     <div *ngIf = "items">
-        <h4> survey: {{items.surveyDate}}</h4> 
-        <h4> survey: {{items.surveyName}}</h4> 
-        <h4> survey: {{items.id}}</h4> 
+      <p> survey: {{items.surveyDate}}</p> 
+        <!-- <h4> survey: {{items.surveyName}}</h4> 
+        <h4> survey: {{items.id}}</h4>  -->
+        <div class="section-container" *ngFor="let subItem of items['sections']; let i = index">
+          <div [formGroupName]="i">
+            <p>Question: {{subItem.question}} </p>
+            <p>QuestionType: {{subItem.questionType}} </p>
 
-      <li *ngFor="let subItem of items['sections']" > 
-        {{subItem.question}} 
-        <!-- {{subItem.questionDesc}}
-        {{subItem.questionType}} -->
-        <ol>  
-          <li *ngFor="let subSubItem of subItem['answers']">
-            {{subSubItem.answer}}
-          </li>  
-        </ol>
-      </li>
+              <div class = "answer" *ngFor="let subSubItem of subItem['answers']">
+                <!-- {{subSubItem.answer}}     -->
+                
+                <input *ngIf = "subItem.questionType == 'Multichoice'" value = "answer" type="radio" [value] = "subSubItem.answer" [id] ="subSubItem.answer" formControlName = "answer"> 
+                <label *ngIf = "subItem.questionType == 'Multichoice'" for="answer"> 
+                  {{subSubItem.answer}}    
+                </label>  
 
+                <input *ngIf = "subItem.questionType == 'Free Text'" type="text" placeholder = "Answer" formControlName="answer">
+
+                </div>
+
+                <div class = "bool" *ngFor="let bool of bools">
+                  <input *ngIf = "subItem.questionType== 'True/False'" type="radio" [value] = "bool" [id]="bool" formControlName="answer">
+                  <label *ngIf = "subItem.questionType == 'True/False'">
+                      {{bool}}
+                  </label>
+                </div>
+                
+
+
+          </div>
+          </div> 
+
+          
     </div>
+  </div>
 
+  
+  <div>
+    <button (click) ="onSubmit" >Submit</button>
 </div>
+
+  </form>

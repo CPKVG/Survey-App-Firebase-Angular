@@ -21,7 +21,7 @@ export class SurveyComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
-    private _survey:SurveyService,
+    private _survey:SurveyService, // for user data storage
     // private afs: AngularFirestore,
   ){
   }
@@ -30,23 +30,23 @@ export class SurveyComponent implements OnInit {
     this.survey = this.fb.group({
       surveyName: [''],
       surveyDate: [''],
-      surveyId:[''], //retriving for surveyUrl
+      // surveyId:[''], //retriving for surveyUrl
       sections: this.fb.array([
         this.initSection(),
       ])
     })
   }
 
-    initSurvey(){
-      this.survey = this.fb.group({
-        surveyName: [''],
-        surveyDate: [''],
-        surveyId:[''], //retriving for surveyUrl
-        sections: this.fb.array([
-          this.initSection(),
-        ])
-      })
-    }
+    // initSurvey(){
+    //   this.survey = this.fb.group({
+    //     surveyName: [''],
+    //     surveyDate: [''],
+    //     // surveyId:[''], //retriving for surveyUrl
+    //     sections: this.fb.array([
+    //       this.initSection(),
+    //     ])
+    //   })
+    // }
 
     initSection() {
       return this.fb.group({
@@ -132,6 +132,7 @@ export class SurveyComponent implements OnInit {
    onSubmit(form:any){
     this.setDate()
     let data = this.survey.value
+    
     this._survey.createUserSurvey(data)
    }
 
