@@ -1,10 +1,11 @@
 
-# Angular-Survey-App
+# Angular-Survey-App(INCOMPLETE, )
 
 Content management system for creating surveys for private deployment. 
 
 * The survey can be customised by answer type (true/false, free text and multichoice). 
-* The application is set to dynamically create forms using angulars build form api 
+* The application is set to dynamically create forms using angulars 'formbuilder + routing'
+* reactive form with the scope of *ngFor
 
 
 ## WIP 

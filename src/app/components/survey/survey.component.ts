@@ -30,7 +30,6 @@ export class SurveyComponent implements OnInit {
     this.survey = this.fb.group({
       surveyName: [''],
       surveyDate: [''],
-      // surveyId:[''], //retriving for surveyUrl
       sections: this.fb.array([
         this.initSection(),
       ])

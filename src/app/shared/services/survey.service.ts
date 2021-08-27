@@ -79,6 +79,16 @@ export class SurveyService {
         }
 
 
+        createCollectionSurvey(data:[]){
+          const collections = this.afs.collection("surveyCollect")
+
+          return collections.add(data)
+          // const _id = this.id
+          
+
+        }
+
+
 
   }
 
