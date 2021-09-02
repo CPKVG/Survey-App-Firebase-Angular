@@ -1,7 +1,10 @@
 
 <!-- **template reference variable**, formbuilder was too complex for this-->
 
-    <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
+<div *ngIf = "!isSubmitted">
+    
+
+    <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value, myForm)" novalidate>
 
 
               <div *ngFor="let item of surveyGet" > 
@@ -12,12 +15,10 @@
 
               <div *ngFor="let subItem of item['sections']; let i = index"> {{subItem.question}}
                   
-                
                   <div *ngFor="let subSubItem of subItem['answers']; let j = index">
 
-                    <input type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel> 
+                    <input type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> 
                     
-
                     <label>{{subSubItem.answer}}</label>
                   </div>  
                 
@@ -26,8 +27,14 @@
             </div>
 
 
-        <button type="submit">Submit</button> <!-- button here redirect to thank you message/ form was successfully sent-->
+        <button type="submit">Submit</button>
       </form>
+    </div>
 
 
-      <pre>{{ surveyForm.value | json }}</pre>
+    <div *ngIf = "isSubmitted">
+      <h3>THANK YOU FOR YOUR SUBMISSION</h3>
+      <p>return to <a routerLink="/home">HOME</a></p>
+    </div>
+
+      <!-- <pre>{{ surveyForm.value | json }}</pre> -->

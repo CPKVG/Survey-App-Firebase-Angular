@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SurveyService } from 'src/app/shared/services/survey.service';
 import { ActivatedRoute } from '@angular/router';
 import { map,take } from 'rxjs/operators';
-import { FormArray, FormGroup, FormControl, FormBuilder } from '@angular/forms'
+import { FormArray, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -23,8 +23,7 @@ export class SurveyUrlComponent implements OnInit{
   dataModel$: any;
   getSurvey$: any;
 
-
-  // retrievedData:any;
+  isSubmitted = false; 
 
   constructor(
       
@@ -36,8 +35,6 @@ export class SurveyUrlComponent implements OnInit{
 
 
   ngOnInit(){
-
-
 
     this.dataModel$ = Object.create(null); 
     const routeId = String(this.route.snapshot.paramMap.get('id'))
@@ -79,34 +76,66 @@ export class SurveyUrlComponent implements OnInit{
             question:(data[i].sections[b].question),
             questionDesc: [data[i].sections[b].questionDesc],
             questionType: [data[i].sections[b].questionType],
-            selectedAnswer:[''],
+            selectedAnswer:['', Validators.required],
             answers:[data[i].sections[b].answers]
           }))
-
-
       })
-
-        
     })
 
       return this.surveyGet = data
     }
 
 
+    
+    // submitForm(form: any) {
+    //   // this.isSubmitted = true;
+    //   if(!form.valid) {
+    //     return false;
+    //   } else {
 
-  onSubmit(value:any) {
+    //     let x = (this.surveyForm.controls['sections']) as FormArray
+
+
+    //     Object.keys(this.surveyForm.value.sections).forEach((a:any) => {
+    //       let y = (x.controls[a])
+    //       y.patchValue({
+    //         selectedAnswer:Object.values(form[a]).toString()
+    //     })
+    
+    
+    //     })
+    
+    //     //set date of submission
+    //     this.surveyForm.patchValue({
+    //       surveyDate: new Date(),
+    //     });
+    
+    //     //post data to firebase w survey service
+    //     let data = this.surveyForm.value
+    //     console.log(data,"DATA")
+    //     // this._survey.createCollectionSurvey(data)
+        
+    //   }
+
+    
+    //   }
+    
+
+
+  onSubmit(value:any,form: NgForm) {
+      
+      if(!form.valid) {
+        return false;
+      } else {
 
 
     let x = (this.surveyForm.controls['sections']) as FormArray
 
-
     Object.keys(this.surveyForm.value.sections).forEach((a:any) => {
-      let y = (x.controls[a])
-      y.patchValue({
-        selectedAnswer:Object.values(value[a]).toString()
-    })
-
-
+    let y = (x.controls[a])
+        y.patchValue({
+          selectedAnswer:Object.values(value[a]).toString()
+      })
     })
 
     //set date of submission
@@ -117,7 +146,11 @@ export class SurveyUrlComponent implements OnInit{
     //post data to firebase w survey service
     let data = this.surveyForm.value
     this._survey.createCollectionSurvey(data)
+
+    this.isSubmitted = true;
+    
+    return data
     
   }
-
+  }
 }

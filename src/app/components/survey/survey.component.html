@@ -7,7 +7,7 @@
 
 
 <form [formGroup]="survey" (ngSubmit)="onSubmit(survey)" *ngIf = "show"  >
-
+    <input type = "text" placeholder="Survey Title" formControlName = "surveyName">
 	<div formArrayName="sections">
 		<div class="section-container" *ngFor="let section of getSections(survey); let i = index">
             <div [formGroupName]="i">

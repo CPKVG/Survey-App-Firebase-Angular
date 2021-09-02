@@ -5,9 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 // Import all the components for which navigation service has to be activated 
 import { SignInComponent } from '../app/components/sign-in/sign-in.component';
 import { SignUpComponent } from '../app/components/sign-up/sign-up.component';
-import { DashboardComponent } from '../app/components/dashboard/dashboard.component';
+import { DashboardComponent } from '../app/pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from '../app/components/forgot-password/forgot-password.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 import { SurveyUrlComponent } from './components/survey/survey-url/survey-url.component';
 
 // import { AuthGuard } from "../app/shared/guard/auth.guard";

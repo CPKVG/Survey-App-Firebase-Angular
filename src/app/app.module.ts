@@ -21,16 +21,25 @@ import { LogTestComponent } from './log-test/log-test.component';
 
 import { SurveyComponent } from './components/survey/survey.component';
 
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { AuthService } from './shared/services/auth.service';
-import { HomeComponent } from './components/home/home.component';
-import { SurveyService } from './shared/services/survey.service';
+
+
 import { SurveyReviewComponent } from './components/survey/survey-review/survey-review.component';
 import { SurveyCollectComponent } from './components/survey/survey-collect/survey-collect.component';
 import { SurveyUrlComponent } from './components/survey/survey-url/survey-url.component';
+//Pages
+import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
+//Shared
+import { HeaderComponent } from './shared/layout/header/header.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+
+//services
+import { SurveyService } from './shared/services/survey.service';
+import { AuthService } from './shared/services/auth.service';
 
 @NgModule({ 
   declarations: [
@@ -41,10 +50,16 @@ import { SurveyUrlComponent } from './components/survey/survey-url/survey-url.co
     DashboardComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    HomeComponent,
+
     SurveyReviewComponent,
     SurveyCollectComponent,
     SurveyUrlComponent,
+
+    HomeComponent,
+    DashboardComponent,
+
+    HeaderComponent,
+    FooterComponent,
 
     
   ],

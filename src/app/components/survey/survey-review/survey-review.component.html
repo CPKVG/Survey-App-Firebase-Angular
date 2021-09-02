@@ -1,16 +1,12 @@
-<p>retrive post data here</p>
+<h3>Survey Collections</h3>
 
-    <h1>List</h1>
-
-
-
-  <div class="surveyRetrived">
+  <div class="review-container">
         <ol>
-            <li *ngFor="let item of _survey.surveys | async" > 
+            <li class = "list-item" *ngFor="let item of _survey.surveys | async" > 
               <ul style="list-style-type:none">
                 <li><h3>{{item.surveyName}}</h3></li>
-                <li>uid = {{item.id}}</li>
-                <li >{{item.surveyDate.toDate() | date:'medium'}}</li>
+                <li>uid: {{item.id}}</li>
+                <li>date created: {{item.surveyDate.toDate() | date:'medium'}}</li>
               </ul>
               <br>
             <ol>
@@ -21,7 +17,7 @@
                 </ol>
               </li>
             </ol>
-            <a routerLink="/survey/{{item.id}}">{{item.id}}</a>
+           <div class = "url-container"> Generated URL link: <a routerLink="/survey/{{item.id}}">{{item.id}}</a>(share the link for participants)</div>
           </li>
 
           <!-- <app-survey-url></app-survey-url> -->
