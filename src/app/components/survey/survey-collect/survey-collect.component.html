@@ -1,25 +1,32 @@
 <h3>Survey Collections</h3>
 
-  <div class="review-container">
+  <!-- <div class="review-container" *ngIf = "_survey.queryCount$">  -->
 
+    <div class="review-container"> <!--waits for this to load-->
         <ol>
             <li class = "list-item" *ngFor="let item of _survey.surveys | async; let i = index"> 
               <ul style="list-style-type:none">
                 <li><h3>{{item.surveyName}}</h3></li>
                 <li>uid: {{item.id}}</li>
                 <li>date created: {{item.surveyDate.toDate() | date:'medium'}}</li>
-                <li>participant count: </li>
                 
-                <li><button (click)="testCol(item.id, i)">Details</button></li>
+                <li>Number of surveys submitted:{{_survey.queryCount$[i]}}</li>
+        
+               <button *ngIf = "_survey.queryCount$[i] > 0" (click)="toggleDetailBtn(item.id, i)">
+                 
+                 {{showDetails[i] ? 'Hide Details' : 'Show Details'}}
+                </button>
 
-                <div class = review-detail-container *ngIf = "show == i">  
-                    <li class = "test" *ngFor="let item1 of _survey.query$" >
+                <div class = review-detail-container *ngIf="showDetails[i]" id = review-detail{{i}}>  
+                  
+                    <li *ngFor="let item1 of _survey.query$" >
                       <ul style="list-style-type:none" >
                         <!-- <li>{{item1.surveyName}}</li> -->
-                        <li>{{item1.surveyDate}}</li>
+                        <li>date submitted:{{item1.surveyDate.toDate()}}</li>  
+                        
                       </ul>
                     </li>
-                    <li class = "test" *ngFor="let item2 of _survey.calcQuery$" >
+                    <li *ngFor="let item2 of _survey.calcArr$[i]" >
                       <ul style="list-style-type:none">
                         <li>{{item2.question}} : {{item2.answer}} : {{item2.value}}</li>
                       </ul>
@@ -29,19 +36,9 @@
 
               </ul>
               <br>
-              <ol>
-                <!-- <li *ngFor="let subItem of item['surveyDate']"> {{subItem.surveyDate}}></li> -->
-                <li *ngFor="let subItem of item['sections']"> {{subItem.question}}
-                  <ol>
-                    <li *ngFor="let subSubItem of subItem['answers']">{{subSubItem.answer}}</li>  
-                  </ol>
-                </li>
-                </ol>
-           <!-- <div class = "url-container"> Generated URL link: <a routerLink="/survey/{{item.id}}">{{item.id}}</a></div> -->
+              <button (click)="surveyDelete(item.id)">Delete this survey</button>
+
           </li>
-
-          <!-- <app-survey-url></app-survey-url> -->
-
 
          
         </ol>

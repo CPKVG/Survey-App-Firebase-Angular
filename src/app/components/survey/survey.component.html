@@ -28,7 +28,7 @@
                 <div formArrayName="answers">
                     <div class = "answers" [formGroupName]="j" *ngFor="let answers of getAnswers(section); let j = index">
 
-                        <input *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" type="text" placeholder = "Answer" formControlName="answer" >
+                        <input *ngIf = "getSections(survey)[i].value.questionType == 'Multichoice'" type="text" placeholder = "Answer" formControlName="answer" >
                         <!--add true/false here checker if questionType = true/false-->
                     
                         
@@ -39,11 +39,10 @@
                                 {{bool}}
                             </label>
                             
-
                         </div>  
   
                     </div>
-                    <button type="button" *ngIf = "getSections(survey)[i].value.questionType !== 'True/False'" (click)="addAnswer(i)">Add Answer</button>
+                    <button type="button" *ngIf = "getSections(survey)[i].value.questionType == 'Multichoice'" (click)="addAnswer(i)">Add Answer</button>
 
                     <button type="button" *ngIf="getAnswers(section).length > 1" (click)="removeAnswer(i)">Remove Answer</button>
                 </div>

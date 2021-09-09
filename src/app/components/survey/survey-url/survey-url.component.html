@@ -14,13 +14,27 @@
               <br>
 
               <div *ngFor="let subItem of item['sections']; let i = index"> {{subItem.question}}
-                  
+
+
                   <div *ngFor="let subSubItem of subItem['answers']; let j = index">
 
-                    <input type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> 
+                    <input *ngIf = "subItem.questionType == 'Multichoice'" type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> 
+                    <label *ngIf = "subItem.questionType == 'Multichoice'">{{subSubItem.answer}}</label>
                     
-                    <label>{{subSubItem.answer}}</label>
-                  </div>  
+                   
+                    <div class = "bool" *ngFor="let bool of bools">
+                      
+                      <input *ngIf = "subItem.questionType == 'True/False'" type = "radio" [id]="i+bool" name="{{i}}" [value] = "bool" ngModel required> 
+                      <label *ngIf = "subItem.questionType == 'True/False'">
+                          {{bool}}
+                      </label>
+                      
+                    </div>  
+
+                    <input *ngIf = "subItem.questionType == 'Free Text'" type = "text" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> <!-- returning F,r,e,e, t,e,x,t-->
+
+                </div>  
+
                 
               </div>
 

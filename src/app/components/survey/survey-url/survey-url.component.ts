@@ -54,7 +54,7 @@ export class SurveyUrlComponent implements OnInit{
       ])
     })
 
-
+    console.log()
   }
 
   //convert data fetched from firebase into formbuilder
@@ -123,19 +123,37 @@ export class SurveyUrlComponent implements OnInit{
 
 
   onSubmit(value:any,form: NgForm) {
-      
+      console.log(value)
       if(!form.valid) {
         return false;
       } else {
 
-
+    
     let x = (this.surveyForm.controls['sections']) as FormArray
+    console.log(x,"x")
+    console.log(this.surveyForm.value.sections,"this.surveyForm.value.sections")
+
+
 
     Object.keys(this.surveyForm.value.sections).forEach((a:any) => {
+      console.log(x.controls)
+      console.log(a,"a")
+
     let y = (x.controls[a])
-        y.patchValue({
-          selectedAnswer:Object.values(value[a]).toString()
+    console.log(value[0],"value[0")
+      // console.log(this.surveyForm.value.sections[a].questionType)
+      //** Gaurd for Multichoice **//
+    if(this.surveyForm.value.sections[a].questionType == "Multichoice"){
+      y.patchValue({
+        selectedAnswer:Object.values(value[a]).toString()
+    })
+    }else{
+      y.patchValue({
+        selectedAnswer:value[a]
       })
+    }
+
+      // console.log(y,"y")
     })
 
     //set date of submission

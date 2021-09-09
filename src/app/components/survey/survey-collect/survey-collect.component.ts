@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SurveyService } from 'src/app/shared/services/survey.service';
-import { ActivatedRoute } from '@angular/router';
-import { map,take } from 'rxjs/operators';
-import { FormArray, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { NgForm } from '@angular/forms';
+
+import { take } from 'rxjs/operators';
+
 
 
 @Component({
@@ -14,28 +13,48 @@ import { NgForm } from '@angular/forms';
 export class SurveyCollectComponent implements OnInit {
 
   getSurvey$: any;
-  show:any;
+
+  // index:number;
+  selectedIndex: number | undefined;
+  show:boolean = false;
+  showDetails:boolean[]=[];
+  showData:any[] = [];
+
+  // testArr:any[] = [];
+  // queryCount$:any[]=[];
+ 
 
   constructor(
     public _survey:SurveyService,
   ) { }
 
   ngOnInit(): void {
-    
+    console.log(this._survey.queryCount$,"count")
+
+    //query via push to showData from _survey.survys, then call getSurveyDetail func for dashboard GET Init'ed 
+
+    this._survey.surveys.pipe(take(1)).subscribe(result => {
+      this.showData.push(result)
+        this.showData[0].forEach((a:any) =>{
+          
+          this._survey.getSurveyDetail(a.id)
+
+        })
+        // console.log(this._survey.queryCount$, "query count")
+
+    })
+
   }
 
-  testCol(url: string, index:any){
-
-    this.showItems(index)
-
-    return this._survey.getSurveyDetail(url)
+  
+  toggleDetailBtn(url: string, i: number){
+    this.show = true
+    this.showDetails[i] = !this.showDetails[i]
   }
 
-  showItems(index:number){
-    this.show = index;
+  surveyDelete(url: string){
+    this._survey.deleteUserSurvey(url)
   }
-
-
 
 
 }

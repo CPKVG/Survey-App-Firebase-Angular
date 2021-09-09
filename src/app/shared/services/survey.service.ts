@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore  } from '@angular/fire/firestore';
-import { flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Survey } from '../services/survey.model'
@@ -19,7 +19,11 @@ export class SurveyService {
   router: any;
   items: any;
   query$: any;
-  calcQuery$: any;
+
+  calcQuery$: any[]=[];
+  calcArr$:any[]=[];
+  queryCount$:any[]=[]; //number of surveys submitted
+
 
     constructor(
         private afs: AngularFirestore,
@@ -48,6 +52,7 @@ export class SurveyService {
             })
 
 
+          
         }
     
     createUserSurvey(data:[]){
@@ -61,6 +66,15 @@ export class SurveyService {
         } 
         return collections.doc(_id).set(_data) //doc id is custom gen, since no way of fetching relavant doc.
     }
+
+
+    deleteUserSurvey(url:any){//delete doc subcollection of surveys 
+
+      const collections = this.afs.collection("users").doc(this.user.uid).collection("surveys").doc(url)
+      collections.delete()
+
+    }
+
 
         getSurvey(routeId:string){ //fetch data for participants to read {users => doc => surveys => doc}
          return this.afs.collectionGroup('surveys').snapshotChanges().pipe(map(actions => {
@@ -85,8 +99,7 @@ export class SurveyService {
 
           return collections.add(data)
           // const _id = this.id
-          
-
+        
         }
 
         //data from participants collective data {surveyCollect => doc}
@@ -97,15 +110,25 @@ export class SurveyService {
             let arr: any[] = []
             a.forEach((b: any) => {
             let data = b.payload.doc.data()
-            
+
+            // console.log(data,"data")
             arr.push(data)
+            
             return arr
             });
-            console.log(arr)
+            // console.log(arr,"arr")
+
             this.query$ = arr
+
+            //if gate (when no ones submitted a survey)
+            if(arr.length !== 0){
+              this.calcQuery$ = this.caculateStats(arr)
+            }
             
-            this.calcQuery$ = this.caculateStats(arr)
+            this.queryCount$.push(arr.length) //no of surveys
             
+            this.calcArr$.push(this.calcQuery$)
+            // console.log(this.query$,"this.Query")
             return this.calcQuery$, this.query$
 
         })
@@ -114,14 +137,16 @@ export class SurveyService {
   
         caculateStats(data: any){
           let arrScoring: any[] = []
-
           //get all default question and answers as scoring template 
-          data[0].sections.forEach((a:any) =>{
-            a.answers.forEach((b:any)=>{
-             return arrScoring.push({question:a.question, answer:b.answer,value:0}) 
+
+            data[0].sections.forEach((a:any) =>{
+              a.answers.forEach((b:any)=>{
+               return arrScoring.push({question:a.question, answer:b.answer,value:0}) 
+              })
+            return arrScoring
             })
-          return arrScoring
-          })
+
+
           //reducer to add value to each occurence via selectedAnswers example** {{question:x, answer:y, value:z}}, z = occurence 
 
           //create arrSelectedAnswers similar to arrScoring 
