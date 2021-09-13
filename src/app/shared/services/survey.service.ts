@@ -21,6 +21,7 @@ export class SurveyService {
   query$: any;
 
   calcQuery$: any[]=[];
+  // calcQuery$: any[]=[];
   calcArr$:any[]=[];
   queryCount$:any[]=[]; //number of surveys submitted
 
@@ -104,32 +105,36 @@ export class SurveyService {
 
         //data from participants collective data {surveyCollect => doc}
         getSurveyDetail(url:string){
-        
+          console.log(url,"url, _service")
+          // this.calcQuery$ = []
         this.afs.collection('surveyCollect', ref => ref.where('uid', '==', url))
           .snapshotChanges().pipe(take(1)).subscribe((a: any) => {
             let arr: any[] = []
             a.forEach((b: any) => {
             let data = b.payload.doc.data()
 
-            // console.log(data,"data")
+            console.log(data,"data, _service")
             arr.push(data)
             
             return arr
             });
-            // console.log(arr,"arr")
+            console.log(arr,"arr,_service")
 
             this.query$ = arr
 
             //if gate (when no ones submitted a survey)
+            console.log(arr.length, "arr length")
             if(arr.length !== 0){
               this.calcQuery$ = this.caculateStats(arr)
+            }else{
+              this.calcQuery$ = []
             }
-            
+            // console.log(this.calcQuery$,"calcQuery$")
             this.queryCount$.push(arr.length) //no of surveys
             
             this.calcArr$.push(this.calcQuery$)
             // console.log(this.query$,"this.Query")
-            return this.calcQuery$, this.query$
+            return this.calcQuery$
 
         })
         
@@ -170,6 +175,35 @@ export class SurveyService {
           return arrScoring
 
         }
+
+
+
+        // surveyDownloadData(url:string, fileType:string){ 
+        //   console.log(url,  "url")
+        //   this.getSurveyDetail(url)
+          
+        //   console.log(this.calcQuery$, "calcQuery in surveyDownloadData ")
+        //   let fileName = ''
+        //   // const data = ''
+        //   if(fileType == 'json'){ 
+        //     fileName = url + ".txt";
+        //   }
+        //   if(fileType == 'csv'){
+        //     fileName = url + ".cvs";
+        //   }
+
+        //   // const fileName = url + fileType;
+        //   console.log(fileName,"fileName")
+        //   const blob = new Blob([JSON.stringify(this.calcQuery$)], { type: 'application/json' });
+        //   // var a = document.createElement("a");
+        //   // a.href = URL.createObjectURL(blob);
+          
+        //   // a.download = fileName;
+        //   // a.click();
+        //   return {blob, fileName }
+        // } 
+
+
         
     }
 

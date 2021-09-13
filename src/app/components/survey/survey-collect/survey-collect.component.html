@@ -37,7 +37,10 @@
               </ul>
               <br>
               <button (click)="surveyDelete(item.id)">Delete this survey</button>
-
+              <br>
+              Download results :
+              <button (click) = "surveyDownloadTxtBtn(item, i)">.txt download</button>
+              <button (click) = "surveyDownloadCsvBtn(item, i)">.cvs download</button>
           </li>
 
          
