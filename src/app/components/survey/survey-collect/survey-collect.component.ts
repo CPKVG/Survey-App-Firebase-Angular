@@ -23,7 +23,7 @@ export class SurveyCollectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this._survey.queryCount$,"count")
+    // console.log(this._survey.queryCount$,"count")
 
     //query via push to showData from _survey.survys, then call getSurveyDetail func for dashboard GET Init'ed 
 
@@ -32,18 +32,16 @@ export class SurveyCollectComponent implements OnInit {
         this.showData[0].forEach((a:any) =>{
           
           this._survey.getSurveyDetail(a.id)
-
         })
-        // console.log(this._survey.queryCount$, "query count")
-
+        // console.log(this._survey.queryCount$, "query count")\
     })
-
   }
 
-  
   toggleDetailBtn(url: string, i: number){
     this.show = true
     this.showDetails[i] = !this.showDetails[i]
+
+    // console.log(this._survey.query$,"this._survey.query$")
   }
 
   surveyDelete(url: string){
@@ -68,8 +66,6 @@ export class SurveyCollectComponent implements OnInit {
     const id = data.uid
 
     this.surveyDownload(type, id, cvs )
-
-
   }
 
   surveyDownloadType(type:string){
@@ -83,16 +79,6 @@ export class SurveyCollectComponent implements OnInit {
     return typeObj
   }
 
-  // surveyDownload(i:number,type:string, data:any){
-  //   const typeObj = this.surveyDownloadType(type);
-  //   const fileName = data.uid + "."+ type;
-  //   const blob = new Blob([JSON.stringify(this._survey.calcArr$[i])], typeObj); 
-
-  //   var a = document.createElement("a");
-  //   a.href = URL.createObjectURL(blob);
-  //   a.download = fileName;
-  //   a.click();
-  // }
 
     surveyDownload(type:string, id: string, data: any){
     const typeObj = this.surveyDownloadType(type);
@@ -123,9 +109,6 @@ export class SurveyCollectComponent implements OnInit {
     //quetion1, answer2, 0
     //quetion1, answer3, 1
   
-
-
-
   const header = Object.keys(data[0])  //get item keys from object array for csv header
   const replacer = (key: any, value: null) => value === null ? '' : value // null values
   const csv = [

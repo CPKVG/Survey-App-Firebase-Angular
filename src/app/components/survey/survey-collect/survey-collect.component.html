@@ -8,30 +8,26 @@
               <ul style="list-style-type:none">
                 <li><h3>{{item.surveyName}}</h3></li>
                 <li>uid: {{item.id}}</li>
-                <li>date created: {{item.surveyDate.toDate() | date:'medium'}}</li>
+                <li>Date created: {{item.surveyDate.toDate() | date:'medium'}}</li>
+                <li>Question Type: {{item.sections[0].questionType}}</li>
                 
-                <li>Number of surveys submitted:{{_survey.queryCount$[i]}}</li>
+                <li>Number of surveys submitted: {{_survey.queryCount$[i]}}</li>
         
                <button *ngIf = "_survey.queryCount$[i] > 0" (click)="toggleDetailBtn(item.id, i)">
-                 
                  {{showDetails[i] ? 'Hide Details' : 'Show Details'}}
                 </button>
 
                 <div class = review-detail-container *ngIf="showDetails[i]" id = review-detail{{i}}>  
                   
-                    <li *ngFor="let item1 of _survey.query$" >
-                      <ul style="list-style-type:none" >
-                        <!-- <li>{{item1.surveyName}}</li> -->
-                        <li>date submitted:{{item1.surveyDate.toDate()}}</li>  
-                        
-                      </ul>
-                    </li>
                     <li *ngFor="let item2 of _survey.calcArr$[i]" >
-                      <ul style="list-style-type:none">
+                      <ul *ngIf = "item2.answer" style="list-style-type:none">
                         <li>{{item2.question}} : {{item2.answer}} : {{item2.value}}</li>
                       </ul>
+                      <ul *ngIf = "item2.selectedAnswer" style="list-style-type:none">
+                        <li>{{item2.question}} : {{item2.selectedAnswer}}</li>
+                      </ul>
                     </li>
-
+                    
               </div>
 
               </ul>

@@ -12,10 +12,10 @@ Content management system for creating surveys for private deployment.
 
 
 ### Planned features [x]implemented
-* Ad Hoc data download in csv or json formatt 
+* [x]ad Hoc data download in csv or json formatt 
 * Chart generation 
 * Bug fixes
-* Data verification 
+* [x]Data verification 
 * [x]Delete survey confirmation 
 * Mannual signin + login 
 * Account recovery 

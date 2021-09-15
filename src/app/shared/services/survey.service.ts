@@ -25,7 +25,6 @@ export class SurveyService {
   calcArr$:any[]=[];
   queryCount$:any[]=[]; //number of surveys submitted
 
-
     constructor(
         private afs: AngularFirestore,
         private afAuth: AngularFireAuth,
@@ -51,9 +50,6 @@ export class SurveyService {
               afAuth.authState.subscribe(user => {
                 this.user = user;
             })
-
-
-          
         }
     
     createUserSurvey(data:[]){
@@ -87,13 +83,9 @@ export class SurveyService {
                   return data;
                 }
               })
-              
             })
-
           )
-
         }
-
 
         createCollectionSurvey(data:[]){
           const collections = this.afs.collection("surveyCollect")
@@ -113,19 +105,23 @@ export class SurveyService {
             a.forEach((b: any) => {
             let data = b.payload.doc.data()
 
-            console.log(data,"data, _service")
+            // console.log(data,"data, _service")
             arr.push(data)
             
             return arr
             });
-            console.log(arr,"arr,_service")
 
             this.query$ = arr
 
             //if gate (when no ones submitted a survey)
             console.log(arr.length, "arr length")
-            if(arr.length !== 0){
+            console.log(arr,"arr")
+            if(arr.length !== 0 && arr[0].sections[0].questionType !== 'Free Text'){
               this.calcQuery$ = this.caculateStats(arr)
+
+            }else if (arr.length !== 0 && arr[0].sections[0].questionType == 'Free Text'){
+              this.calcQuery$ = this.caculateStatsFT(arr)
+
             }else{
               this.calcQuery$ = []
             }
@@ -133,24 +129,38 @@ export class SurveyService {
             this.queryCount$.push(arr.length) //no of surveys
             
             this.calcArr$.push(this.calcQuery$)
-            // console.log(this.query$,"this.Query")
+            console.log(this.calcArr$,"this.calcArr")
             return this.calcQuery$
 
         })
         
         } 
-  
+/*FREE TEXT QUESTIONTYPES */
+        caculateStatsFT(data: any){ // return list of free text data 
+          let arrTypedAnswers: any[] = []
+          console.log(data[0].sections,"data[0].sections")
+          data.forEach((a:any) =>{
+            a.sections.forEach((b:any) =>{
+              return arrTypedAnswers.push({question:b.question, selectedAnswer:b.selectedAnswer})
+            })
+          
+          })
+          // console.log(arrTypedAnswers,"arrTypedAnswers")
+          return arrTypedAnswers
+        }
+
+  /*MULTICHOICE && TRUE/FALSE QUESTIONTYPES */
         caculateStats(data: any){
           let arrScoring: any[] = []
           //get all default question and answers as scoring template 
-
             data[0].sections.forEach((a:any) =>{
+              // if(data[0].sections[0].questionType == 'Multichoice' || data[0].sections[0].questionType == 'True/False'){
               a.answers.forEach((b:any)=>{
                return arrScoring.push({question:a.question, answer:b.answer,value:0}) 
               })
+            
             return arrScoring
             })
-
 
           //reducer to add value to each occurence via selectedAnswers example** {{question:x, answer:y, value:z}}, z = occurence 
 
@@ -171,40 +181,12 @@ export class SurveyService {
             })
             
           });
-          console.log(arrScoring)
+
           return arrScoring
 
         }
 
 
-
-        // surveyDownloadData(url:string, fileType:string){ 
-        //   console.log(url,  "url")
-        //   this.getSurveyDetail(url)
-          
-        //   console.log(this.calcQuery$, "calcQuery in surveyDownloadData ")
-        //   let fileName = ''
-        //   // const data = ''
-        //   if(fileType == 'json'){ 
-        //     fileName = url + ".txt";
-        //   }
-        //   if(fileType == 'csv'){
-        //     fileName = url + ".cvs";
-        //   }
-
-        //   // const fileName = url + fileType;
-        //   console.log(fileName,"fileName")
-        //   const blob = new Blob([JSON.stringify(this.calcQuery$)], { type: 'application/json' });
-        //   // var a = document.createElement("a");
-        //   // a.href = URL.createObjectURL(blob);
-          
-        //   // a.download = fileName;
-        //   // a.click();
-        //   return {blob, fileName }
-        // } 
-
-
-        
     }
 
 
