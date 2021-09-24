@@ -114,8 +114,8 @@ export class SurveyService {
             this.query$ = arr
 
             //if gate (when no ones submitted a survey)
-            console.log(arr.length, "arr length")
-            console.log(arr,"arr")
+            //console.log(arr.length, "arr length")
+            //console.log(arr,"arr")
             if(arr.length !== 0 && arr[0].sections[0].questionType !== 'Free Text'){
               this.calcQuery$ = this.caculateStats(arr)
 
@@ -129,7 +129,7 @@ export class SurveyService {
             this.queryCount$.push(arr.length) //no of surveys
             
             this.calcArr$.push(this.calcQuery$)
-            console.log(this.calcArr$,"this.calcArr")
+            //console.log(this.calcArr$,"this.calcArr")
             return this.calcQuery$
 
         })
@@ -138,7 +138,7 @@ export class SurveyService {
 /*FREE TEXT QUESTIONTYPES */
         caculateStatsFT(data: any){ // return list of free text data 
           let arrTypedAnswers: any[] = []
-          console.log(data[0].sections,"data[0].sections")
+          // console.log(data[0].sections,"data[0].sections")
           data.forEach((a:any) =>{
             a.sections.forEach((b:any) =>{
               return arrTypedAnswers.push({question:b.question, selectedAnswer:b.selectedAnswer})

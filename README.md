@@ -25,6 +25,8 @@ Content management system for creating surveys for private deployment.
 * [Firebase](https://firebase.google.com/) utilised as its backend as a service
 ### Dependancies
 * [AngularFire](https://github.com/angular/angularfire) version 7.0.
+* [chartjs](https://github.com/chartjs/Chart.js/releases/tag/v3.5.1) version 3.5.1.
+
 ```
 npm install firebase @angular/fire --save
 ```

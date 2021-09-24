@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./survey-collect.component.scss']
 })
 export class SurveyCollectComponent implements OnInit {
+  // parentProperty = "I come from parent"
 
   getSurvey$: any;
 
@@ -85,8 +86,6 @@ export class SurveyCollectComponent implements OnInit {
     const fileName = id  + "."+ type;
 
      const blob = new Blob([JSON.stringify(data)], typeObj); 
-    // const fileName = data.uid + "."+ type;
-    // const blob = new Blob([JSON.stringify(this._survey.calcArr$[i])], typeObj); 
 
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);

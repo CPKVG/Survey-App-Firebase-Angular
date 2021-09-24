@@ -40,6 +40,7 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 //services
 import { SurveyService } from './shared/services/survey.service';
 import { AuthService } from './shared/services/auth.service';
+import { SurveyChartComponent } from './components/survey/survey-chart/survey-chart.component';
 
 @NgModule({ 
   declarations: [
@@ -60,6 +61,7 @@ import { AuthService } from './shared/services/auth.service';
 
     HeaderComponent,
     FooterComponent,
+    SurveyChartComponent,
 
     
   ],
