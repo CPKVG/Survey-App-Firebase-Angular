@@ -14,10 +14,11 @@ export class SurveyCollectComponent implements OnInit {
   // parentProperty = "I come from parent"
 
   getSurvey$: any;
-
+  
   show:boolean = false;
   showDetails:boolean[]=[];
   showData:any[] = [];
+  // unique:any[] = [];
 
   constructor(
     public _survey:SurveyService,
@@ -29,14 +30,19 @@ export class SurveyCollectComponent implements OnInit {
     //query via push to showData from _survey.survys, then call getSurveyDetail func for dashboard GET Init'ed 
 
     this._survey.surveys.pipe(take(1)).subscribe(result => {
+      console.log(this.showData,"showData")
       this.showData.push(result)
         this.showData[0].forEach((a:any) =>{
-          
+
           this._survey.getSurveyDetail(a.id)
+          this._survey.setChartData(a.sections)
         })
         // console.log(this._survey.queryCount$, "query count")\
     })
+
   }
+
+
 
   toggleDetailBtn(url: string, i: number){
     this.show = true

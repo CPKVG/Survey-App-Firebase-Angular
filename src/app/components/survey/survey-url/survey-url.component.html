@@ -13,27 +13,55 @@
 
               <br>
 
-              <div *ngFor="let subItem of item['sections']; let i = index"> {{subItem.question}}
+              <div *ngFor="let subItem of item['sections']; let i = index"> 
+                {{subItem.question}}
+                <!-- {{subItem.questionType}} -->
+
+               
+               <div *ngIf = "subItem.questionType == 'Free Text'" >
+                
+                <div *ngFor="let subSubItem of subItem['answers']; let j = index">   
+                  <input type = "text" id="subSubItem{{i}}" name="{{i}}" [value] ="subSubItem" ngModel required>
+                </div>
+
+               </div>
+
+               <div *ngIf = "subItem.questionType !== 'Free Text'" >
+                <div *ngFor="let subSubItem of subItem['answers']; let j = index">
+                  <input *ngIf = "subItem.questionType !== 'Free Text'" type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> 
+                  <label *ngIf = "subItem.questionType !== 'Free Text'">{{subSubItem.answer}}</label>
+                </div>
+
+               </div>
 
 
-                  <div *ngFor="let subSubItem of subItem['answers']; let j = index">
 
-                    <input *ngIf = "subItem.questionType == 'Multichoice'" type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> 
-                    <label *ngIf = "subItem.questionType == 'Multichoice'">{{subSubItem.answer}}</label>
+              
+                
+
+
+                  <!-- <div *ngFor="let subSubItem of subItem['answers']; let j = index"> -->
+                   
+                    <!-- <input *ngIf = "subItem.questionType == 'Free Text'" type = "text" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> -->
+
+                    <!-- <input *ngIf = "subItem.questionType !== 'Free Text'" type = "radio" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> 
+                    <label *ngIf = "subItem.questionType !== 'Free Text'">{{subSubItem.answer}}</label> -->
                     
                    
-                    <div class = "bool" *ngFor="let bool of bools">
+                    <!-- <div class = "bool" *ngFor="let bool of bools">
                       
                       <input *ngIf = "subItem.questionType == 'True/False'" type = "radio" [id]="i+bool" name="{{i}}" [value] = "bool" ngModel required> 
                       <label *ngIf = "subItem.questionType == 'True/False'">
                           {{bool}}
-                      </label>
+                      </label> -->
                       
-                    </div>  
+                    <!-- </div>   -->
 
-                    <input *ngIf = "subItem.questionType == 'Free Text'" type = "text" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> <!-- returning F,r,e,e, t,e,x,t-->
-
-                </div>  
+                    <!-- <input *ngIf = "subItem.questionType == 'Free Text'" type = "text" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> -->
+ 
+                        <!-- <input type = "text" id="subSubItem{{i}}{{j}}" name="{{i}}" [value] ="subSubItem" ngModel required> -->
+                      
+                <!-- </div>   -->
 
                 
               </div>

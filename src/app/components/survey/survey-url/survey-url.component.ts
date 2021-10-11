@@ -142,8 +142,9 @@ export class SurveyUrlComponent implements OnInit{
     let y = (x.controls[a])
     console.log(value[0],"value[0")
       // console.log(this.surveyForm.value.sections[a].questionType)
-      //** Gaurd for Multichoice **//
-    if(this.surveyForm.value.sections[a].questionType == "Multichoice"){
+      //** Gaurd against  Free Text **//
+    if(this.surveyForm.value.sections[a].questionType !== "Free Text"){
+      console.log(Object.values(value[a]).toString(),"Object.values(value[a]).toString()")
       y.patchValue({
         selectedAnswer:Object.values(value[a]).toString()
     })

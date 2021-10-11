@@ -30,27 +30,26 @@
 
                         <input *ngIf = "getSections(survey)[i].value.questionType == 'Multichoice'" type="text" placeholder = "Answer" formControlName="answer" >
                         <!--add true/false here checker if questionType = true/false-->
-                    
                         
-                        <div class = "bool" *ngFor="let bool of bools">
+                        <!-- <div class = "bool" *ngFor="let bool of bools">
  
                             <input *ngIf = "getSections(survey)[i].value.questionType == 'True/False'" type="radio" formControlName="answer" [value] = "bool" [id]="i+bool">
                             <label *ngIf = "getSections(survey)[i].value.questionType == 'True/False'">
                                 {{bool}}
                             </label>
                             
-                        </div>  
+                        </div>   -->
   
                     </div>
                     <button type="button" *ngIf = "getSections(survey)[i].value.questionType == 'Multichoice'" (click)="addAnswer(i)">Add Answer</button>
 
-                    <button type="button" *ngIf="getAnswers(section).length > 1" (click)="removeAnswer(i)">Remove Answer</button>
+                    <button type="button" *ngIf="getAnswers(section).length > 1 && getSections(survey)[i].value.questionType !== 'True/False'" (click)="removeAnswer(i)">Remove Answer</button>
                 </div>
 
             </div>
             <button type="button" *ngIf="getSections(survey).length > 1" (click)="removeSection(i)">Remove Section</button>
         </div><br>
-        <button (click)="addSection()" class="point">Add Section </button>
+        <button type="button" (click)="addSection()" class="point">Add Section </button>
     </div>
     <div>
         <button (click) ="onSubmit" >Submit</button>

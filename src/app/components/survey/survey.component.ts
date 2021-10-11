@@ -11,6 +11,16 @@ import { SurveyService } from 'src/app/shared/services/survey.service';
 export class SurveyComponent implements OnInit {
   public bools = ["True","False"] 
 
+  public boolAnswers = [
+    {
+      "answer": "True"
+    },
+    {
+      "answer": "False"
+    }
+
+  ]
+
   public show:boolean = false;
 
   survey!: FormGroup;
@@ -64,27 +74,54 @@ export class SurveyComponent implements OnInit {
       });
     }
 
+    //for bool
+    addAnswerBool(data:any){
+      return this.fb.group({
+        answer: [data],
+      });
+    }
+
+    removeAnswerBool(j:number){
+      const control = this.survey.get(`sections.${j}.answers`) as FormArray;
+      // console.log(control.value,"control")
+      control.removeAt(control.value.length - 2); // only want to remove last input
+    }
+
+
     addSection() {
       const control = this.survey.get('sections') as FormArray;
       control.push(this.initSection());
     }
 
     // value[0].questionType
-    addAnswer(j:any) {
+    addAnswer(j:number) {
+      console.log(j,"index to add number")
       // console.log(j);
       const control = this.survey.get(`sections.${j}.answers`) as FormArray;
       control.push(this.initAnswer());      
     }
 
 
-    changeType(i:any){
-      
-    if(this.getSections(this.survey)[i].value.questionType == 'True/False'){
+    changeType(i:number){
       const control = this.survey.get(`sections.${i}.answers`) as FormArray;
-      while (control.length > 1) {
-        control.removeAt(i);
+
+    if(this.getSections(this.survey)[i].value.questionType == 'True/False'){
+
+      control.clear(); // clear out previous populated value 
+
+      if(control.length == 0){
+        control.push(this.addAnswerBool('True'))
+        control.push(this.addAnswerBool('False')) 
       }
-    
+
+
+      }else if(this.getSections(this.survey)[i].value.questionType == 'Free Text'){
+        control.clear();
+        control.push(this.addAnswerBool(''))
+      }else{
+        control.clear();
+        this.addAnswer(i)
+
       }
     }
 
@@ -128,10 +165,12 @@ export class SurveyComponent implements OnInit {
   //   });
   // }
 
+
+
    onSubmit(form:any){
     this.setDate()
-    let data = this.survey.value
-    
+    let data = this.survey.value  
+    console.log("i am submitted")
     this._survey.createUserSurvey(data)
    }
 

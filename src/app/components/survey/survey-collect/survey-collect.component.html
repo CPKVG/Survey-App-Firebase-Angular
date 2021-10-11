@@ -9,7 +9,18 @@
                 <li><h3>{{item.surveyName}}</h3></li>
                 <li>uid: {{item.id}}</li>
                 <li>Date created: {{item.surveyDate.toDate() | date:'medium'}}</li>
-                <li>Question Type: {{item.sections[0].questionType}}</li>
+                <li>Question Type:
+                  <!-- Question Type:{{_survey.questionTypeList$}} -->
+                  <ul *ngFor = "let questionTypes of _survey.questionTypeList$[i]">
+                  
+                    <li>
+                      {{questionTypes}}
+                    </li>
+                  </ul>
+
+                </li>
+
+          
                 
                 <li>Number of surveys submitted: {{_survey.queryCount$[i]}}</li>
         
@@ -19,16 +30,21 @@
 
                 <div class = review-detail-container *ngIf="showDetails[i]" id = review-detail{{i}}>  
                   
+                  
                     <li *ngFor="let item2 of _survey.calcArr$[i]" >
-                      <ul *ngIf = "item2.answer" style="list-style-type:none">
+                      
+                      <ul *ngIf = "item2.questionType !== 'Free Text' " style="list-style-type:none">
                         <li>{{item2.question}} : {{item2.answer}} : {{item2.value}}</li>
                       </ul>
-                      <ul *ngIf = "item2.selectedAnswer" style="list-style-type:none">
+                      <ul *ngIf = "item2.questionType == 'Free Text' " style="list-style-type:none">
+                        <li>{{item2.question}} : {{item2.answer}}</li>
+                      </ul>
+                      <!-- <ul *ngIf = "item2.selectedAnswer" style="list-style-type:none">
                         <li>{{item2.question}} : {{item2.selectedAnswer}}</li>
-                      </ul> 
+                      </ul>  -->
                       
                     </li>
-
+                    <br>
                     <app-survey-chart *ngIf = "_survey.calcArr$[i][0].answer" [ChartDataIndex]="i"></app-survey-chart>
 
               </div>
