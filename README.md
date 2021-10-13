@@ -74,3 +74,27 @@ export const environment = {
 ```
 Enable Google login under `Authentication tab` => `Sign in method`
 
+## Chart JS (Optional)
+To configure the colour go to  ```src\app\components\survey\survey-chart\survey-chart.component.ts```
+scroll down to find the code 
+```
+    filteredArr.map((a, index)=> {
+        ...
+        datasets:[{
+        ...
+          borderColor:'red',
+          backgroundColor: 'rgba(239, 118, 160, 1)'
+        }]
+        ...
+    })
+```
+To configure the scale go to  ```src\app\components\survey\survey-chart\survey-chart.component.scss```
+```
+.chart-containter{
+    display: block;
+    width:600px;
+    height:600px;
+}
+```
+
+
