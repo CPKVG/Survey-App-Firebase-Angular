@@ -50,6 +50,7 @@ Content management system for creating surveys for private deployment.
 
 ```
 npm install firebase @angular/fire --save
+npm install chart.js --save
 ```
 
 ### Firebase ConfigAPI
