@@ -84,8 +84,8 @@ export class SurveyChartComponent implements OnInit, OnChanges   {
       )
     )
   
+    //* CHART CHARACTERISTICS */
     filteredArr.map((a, index)=> {
-
       this.chartData.push({
         labels:arrLabel[index],
         datasets:[{
@@ -96,10 +96,7 @@ export class SurveyChartComponent implements OnInit, OnChanges   {
           // fill:falseCanvasRenderingContext2D
         }]
       }) 
-
-    }
-
-    )
+    })
 
     const baseConfig: any = {
         type: 'bar',
@@ -113,8 +110,6 @@ export class SurveyChartComponent implements OnInit, OnChanges   {
         }
 
     setTimeout(() => {
-
-
       let arrLength:number[] = []
       this._survey.chartQuery$.forEach(a => {
        arrLength.push(a.length)
